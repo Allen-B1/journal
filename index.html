@@ -2,10 +2,13 @@
 <html lang="en">
     <head>
         <title>Journal</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1 id="today"></h1>
-        <textarea id="journal"></textarea>
+        <main>
+            <h1><span id="today"></span></h1>
+            <textarea id="journal"></textarea>
+        </main>
 
         <script>
 function dateString(date) {
@@ -23,9 +26,7 @@ function init() {
     journal.oninput = function() {
         localStorage.setItem(string, journal.value);
     }
-    if (dateString(new Date) !== dateString(today)) {
-        journal.readOnly = true;
-    }
+    journal.readOnly = dateString(new Date) !== dateString(today);
     document.getElementById("today").innerHTML = today.toLocaleDateString("default");
 }
 window.addEventListener("hashchange", init);
