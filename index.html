@@ -8,17 +8,23 @@
         <textarea id="journal"></textarea>
 
         <script>
+function dateString(date) {
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+}
 function init() {
     var today = new Date();
     if (location.hash) {
         var things = location.hash.slice(1).split("-");
         today = new Date(things[0], things[1] - 1, things[2]);
     }
-    var dateString = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+    var string = dateString(today);
     var journal = document.getElementById("journal");
-    journal.value = localStorage.getItem(dateString);
+    journal.value = localStorage.getItem(string);
     journal.oninput = function() {
-        localStorage.setItem(dateString, journal.value);
+        localStorage.setItem(string, journal.value);
+    }
+    if (dateString(new Date) !== dateString(today)) {
+        journal.readOnly = true;
     }
     document.getElementById("today").innerHTML = today.toLocaleDateString("default");
 }
