@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-
+        <title>Journal</title>
     </head>
     <body>
         <h1 id="today"></h1>
         <textarea id="journal"></textarea>
 
         <script>
-var today = new Date();
-var dateString = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
-var journal = document.getElementById("journal");
-journal.value = localStorage.getItem(dateString);
-journal.oninput = function() {
-    localStorage.setItem(dateString, journal.value);
+function init() {
+    var today = new Date();
+    if (location.hash) {
+        var things = location.hash.slice(1).split("-");
+        today = new Date(things[0], things[1] - 1, things[2]);
+    }
+    var dateString = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+    var journal = document.getElementById("journal");
+    journal.value = localStorage.getItem(dateString);
+    journal.oninput = function() {
+        localStorage.setItem(dateString, journal.value);
+    }
+    document.getElementById("today").innerHTML = today.toLocaleDateString("default");
 }
-document.getElementById("today").innerHTML = today.toLocaleDateString("default");
+window.addEventListener("hashchange", init);
+init();
         </script>
     </body>
 </html>
