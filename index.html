@@ -15,6 +15,7 @@ journal.value = localStorage.getItem(dateString);
 journal.oninput = function() {
     localStorage.setItem(dateString, journal.value);
 }
+document.getElementById("today").innerHTML = today.toLocaleDateString("default");
         </script>
     </body>
 </html>
