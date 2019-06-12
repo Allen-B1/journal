@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    </head>
+    <body>
+        <h1 id="today"></h1>
+        <textarea id="journal"></textarea>
+
+        <script>
+var today = new Date();
+var dateString = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+var journal = document.getElementById("journal");
+journal.value = localStorage.getItem(dateString);
+journal.oninput = function() {
+    localStorage.setItem(dateString, journal.value);
+}
+        </script>
+    </body>
+</html>
